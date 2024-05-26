@@ -6,8 +6,8 @@
 
 1. Клонування репозиторію:
     ```bash
-    git clone https://github.com/yourusername/school-management-system.git
-    cd school-management-system
+    git clone https://github.com/kozhydlo/server-for-Moodle5.0.git
+    cd server-for-Moodle5.0
     ```
 
 2. Встановлення залежностей:
