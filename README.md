@@ -1,132 +1,226 @@
-# ECO-BLOG: Environmental Awareness Platform
+# Система управління навчальним процесом
 
-## Overview
+Цей репозиторій містить код для API системи управління навчальним процесом, побудованої з використанням Node.js та Express. API дозволяє керувати студентами, вчителями, предметами, класами, розкладом та пов'язаними операціями, такими як додавання та отримання оцінок, управління матеріалами та багато іншого.
 
-ECO-BLOG is a comprehensive digital platform developed using React and Node.js. It serves as an interactive forum where environmentally conscious individuals can engage in discussions, share ideas, and collaborate on sustainability projects. The platform enables users to create posts, comment on discussions, and interact with others to foster a strong community for environmental awareness.
+## Встановлення
 
-## Features
-
-- **User-generated content**: Users can create and publish articles on environmental topics.
-- **Discussion forums**: Engage in conversations about sustainability and environmental protection.
-- **Comment system**: Users can comment on posts and interact with the community.
-- **User authentication**: Secure login and registration system with JWT authentication.
-- **News updates**: Stay informed with the latest environmental news and developments.
-- **Collaboration tools**: Work together on eco-friendly projects and initiatives.
-- **Interactive dashboard**: Personalized user experience with saved posts and notifications.
-- **Responsive UI**: A mobile-friendly and intuitive interface built using modern web technologies.
-
-## Technologies Used
-
-### Frontend
-- React.js
-- CSS
-- Bootstrap
-
-### Backend
-- Node.js
-- Express.js
-- JWT Authentication
-
-### Database
-- MongoDB for storing user posts, comments, and user data
-
-### Other Tools
-- Redux for state management
-- Cloudinary for image hosting
-
-## Installation
-
-1. Clone the repository:
-   ```sh
-   git clone <repository-url>
-   ```
-2. Navigate to the project directory:
-   ```sh
-   cd eco-blog
-   ```
-3. Install dependencies:
-   ```sh
-   npm install
-   ```
-4. Configure environment variables in a `.env` file:
-   ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
-   CLOUDINARY_URL=your_cloudinary_url
-   ```
-5. Start the development server:
-   ```sh
-   npm start
-   ```
-
-## Project Goals
-
-The primary goal of ECO-BLOG is to build an online forum dedicated to environmental awareness, where users can actively participate in discussions, exchange ideas, and collaborate on sustainability projects. It aims to provide an engaging and interactive space for eco-conscious individuals to make a positive impact.
-
-## Screenshots
-
-*(Add screenshots here)*
-
-## Project Report
-
-For an in-depth understanding of the platform and its development, refer to the full scientific research document (in Ukrainian): **[ECO-BLOG Scientific Report](<link-to-scientific-report>)**
-
-## Competition Participation
-
-This project was developed for the **All-Ukrainian competition "Eko - Tekhno Ukraina 2024"**, the national stage of the **International Science and Engineering Fair (Regeneron ISEF-2024)**.
-
-## Contribution
-
-We welcome contributions! Feel free to submit pull requests or open issues to suggest improvements and new features.
-
-## License
-
-This project is licensed under [Specify License].
-
----
-
-# Learning Management System
-
-This repository contains the API code for a Learning Management System built using Node.js and Express. The API allows managing students, teachers, subjects, classes, schedules, and related operations such as adding and retrieving grades, managing learning materials, and more.
-
-## Installation
-
-1. Clone the repository:
-    ```bash
+1. Клонування репозиторію:
+    
+bash
     git clone https://github.com/kozhydlo/server-for-Moodle5.0.git
     cd server-for-Moodle5.0
-    ```
 
-2. Install dependencies:
-    ```bash
+
+2. Встановлення залежностей:
+    
+bash
     npm install
-    ```
 
-3. Configure environment variables:
-    Create a `.env` file in the root directory and add your environment variables. Example:
-    ```env
+
+3. Налаштування змінних середовища:
+    Створіть файл .env у кореневій директорії та додайте ваші змінні середовища. Приклад:
+    
+env
     PORT=5000
     MONGO_URI=your_mongodb_connection_string
     JWT_SECRET=your_jwt_secret
-    ```
 
-4. Start the server:
-    ```bash
+
+4. Запуск серверу:
+    
+bash
     npm start
-    ```
 
-## API Endpoints
 
-*(All API endpoints are the same as in the Ukrainian version above.)*
+## Кінцеві точки API
 
-## Contribution
+### Кінцеві точки для користувачів та автентифікації
 
-Contributions are welcome! Please open an issue to discuss what you would like to change.
+- **Додати оцінку**
+  - **URL:** /addRating
+  - **Метод:** POST
+  - **Опис:** Додавання або оновлення оцінок для студента.
+  - **Параметри в тілі запиту:**
+    - studentName: String
+    - date: Date (YYYY-MM-DD)
+    - ratings: Масив об'єктів, що містять subject та ratings
 
-## License
+- **Список студентів**
+  - **URL:** /listSTUDENT
+  - **Метод:** POST
+  - **Опис:** Отримання списку студентів.
+  - **Параметри в тілі запиту:**
+    - username: String (необов'язковий)
 
-This project is licensed under the MIT License.
+- **Список вчителів**
+  - **URL:** /listTEACHER
+  - **Метод:** POST
+  - **Опис:** Отримання списку вчителів.
+  - **Параметри в тілі запиту:**
+    - username: String (необов'язковий)
 
-## Competition Information
+- **Видалити предмет у студента**
+  - **URL:** /deleteSubject
+  - **Метод:** POST
+  - **Опис:** Видалення предмету у студента.
+  - **Параметри в тілі запиту:**
+    - username: String
+    - subjectId: String
 
-This project was prepared for the **All-Ukrainian competition "Eko - Tekhno Ukraina 2024"**, the national stage of the **International Science and Engineering Fair (Regeneron ISEF-2024)**. However, due to poor teamwork, we divided responsibilities: my teammates were responsible for the frontend while I handled the backend. I completed my part, but they did not finish theirs.
+- **Додати предмет вчителю**
+  - **URL:** /addSubjectToTeacher
+  - **Метод:** POST
+  - **Опис:** Додавання предмету вчителю.
+  - **Параметри в тілі запиту:**
+    - teacherName: String
+    - subjectName: String
+
+- **Список студентів за предметом**
+  - **URL:** /studentsBySubject
+  - **Метод:** POST
+  - **Опис:** Отримання списку студентів, які записані на певний предмет.
+  - **Параметри в тілі запиту:**
+    - subject: String
+
+### Кінцеві точки для предметів
+
+- **Отримати всі предмети**
+  - **URL:** /subjects
+  - **Метод:** GET
+  - **Опис:** Отримання списку всіх предметів.
+
+- **Додати предмет**
+  - **URL:** /subjects
+  - **Метод:** POST
+  - **Опис:** Додавання нового предмету.
+  - **Параметри в тілі запиту:**
+    - name: String
+
+- **Видалити предмет**
+  - **URL:** /subjects
+  - **Метод:** DELETE
+  - **Опис:** Видалення предмету.
+  - **Параметри в тілі запиту:**
+    - name: String
+
+### Кінцеві точки для розкладу
+
+- **Додати запис до розкладу**
+  - **URL:** /subjects/schedule
+  - **Метод:** POST
+  - **Опис:** Додавання запису до розкладу для предмету.
+  - **Параметри в тілі запиту:**
+    - name: String
+    - day: String
+    - time: String
+
+- **Видалити запис з розкладу**
+  - **URL:** /subjects/schedule
+  - **Метод:** DELETE
+  - **Опис:** Видалення запису з розкладу для предмету.
+  - **Параметри в тілі запиту:**
+    - name: String
+    - day: String
+    - time: String
+
+- **Отримати розклад**
+  - **URL:** /subjects/schedule
+  - **Метод:** GET
+  - **Опис:** Отримання розкладу для предмету.
+  - **Параметри в тілі запиту:**
+    - name: String
+
+### Кінцеві точки для класів
+
+- **Створити клас**
+  - **URL:** /class
+  - **Метод:** POST
+  - **Опис:** Створення нового класу.
+  - **Параметри в тілі запиту:**
+    - name: String
+
+- **Додати студента до класу**
+  - **URL:** /class/add-student
+  - **Метод:** POST
+  - **Опис:** Додавання студента до класу.
+  - **Параметри в тілі запиту:**
+    - className: String
+    - studentUsername: String
+
+- **Видалити клас**
+  - **URL:** /class
+  - **Метод:** DELETE
+  - **Опис:** Видалення класу.
+  - **Параметри в тілі запиту:**
+    - name: String
+
+- **Отримати всі класи**
+  - **URL:** /class
+  - **Метод:** GET
+  - **Опис:** Отримання списку всіх класів.
+
+### Кінцеві точки для оцінок
+
+- **Отримати статистику по предмету**
+  - **URL:** /subject/statistics
+  - **Метод:** POST
+  - **Опис:** Отримання статистики оцінок по предмету.
+  - **Параметри в тілі запиту:**
+    - username: String
+    - password: String
+    - subject: String
+
+### Кінцеві точки для матеріалів
+
+- **Завантажити PDF**
+  - **URL:** /upload
+  - **Метод:** POST
+  - **Опис:** Завантаження PDF файлу.
+  - **Параметри в тілі запиту:**
+    - username: String
+    - password: String
+    - className: String
+    - subject: String
+    - file: PDF файл
+
+- **Отримати матеріали**
+  - **URL:** /materials
+  - **Метод:** GET
+  - **Опис:** Отримання списку матеріалів для конкретного класу та предмету.
+  - **Параметри запиту:**
+    - className: String (необов'язковий)
+    - subject: String (необов'язковий)
+
+- **Перегляд PDF**
+  - **URL:** /material/:id
+  - **Метод:** GET
+  - **Опис:** Перегляд конкретного PDF файлу за ID.
+
+- **Видалити PDF**
+  - **URL:** /material/:id
+  - **Метод:** DELETE
+  - **Опис:** Видалення конкретного PDF файлу за ID.
+
+## Middleware
+
+API використовує декілька middleware для різних функціональностей:
+- authMiddleware: Для автентифікації користувачів.
+- roleMiddleware: Для авторизації користувачів на основі їх ролей.
+- checkRole: Для перевірки конкретних ролей для певних маршрутів.
+
+## Моделі
+
+API використовує наступні моделі:
+- User: Для управління інформацією про користувачів.
+- Rating: Для зберігання оцінок студентів.
+- Subject: Для управління предметами.
+- Class: Для управління класами.
+- Material: Для зберігання завантажених PDF матеріалів.
+
+## Внесок
+
+Внесок вітається! Будь ласка, створіть issue, щоб обговорити, що ви хочете змінити.
+
+## Ліцензія
+
+Цей проект ліцензований під ліцензією MIT.
