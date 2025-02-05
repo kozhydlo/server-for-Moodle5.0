@@ -1,226 +1,228 @@
-# Система управління навчальним процесом
+# Learning Process Management System
 
-Цей репозиторій містить код для API системи управління навчальним процесом, побудованої з використанням Node.js та Express. API дозволяє керувати студентами, вчителями, предметами, класами, розкладом та пов'язаними операціями, такими як додавання та отримання оцінок, управління матеріалами та багато іншого.
+This repository contains the code for an API designed for a learning process management system, built using Node.js and Express. The API enables management of students, teachers, subjects, classes, schedules, and related operations such as adding and retrieving grades, managing materials, and more.
 
-## Встановлення
+> This documentation was created as part of a Ukrainian national competition project in a dedicated team.
 
-1. Клонування репозиторію:
-    
-bash
-    git clone https://github.com/kozhydlo/server-for-Moodle5.0.git
-    cd server-for-Moodle5.0
+## Installation
 
+1. Clone the repository:
 
-2. Встановлення залежностей:
-    
-bash
-    npm install
+```bash
+git clone https://github.com/kozhydlo/server-for-Moodle5.0.git
+cd server-for-Moodle5.0
+```
 
+2. Install dependencies:
 
-3. Налаштування змінних середовища:
-    Створіть файл .env у кореневій директорії та додайте ваші змінні середовища. Приклад:
-    
-env
-    PORT=5000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
+```bash
+npm install
+```
 
+3. Configure environment variables:
+   Create a `.env` file in the root directory and add your environment variables. Example:
 
-4. Запуск серверу:
-    
-bash
-    npm start
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+```
 
+4. Start the server:
 
-## Кінцеві точки API
+```bash
+npm start
+```
 
-### Кінцеві точки для користувачів та автентифікації
+## API Endpoints
 
-- **Додати оцінку**
-  - **URL:** /addRating
-  - **Метод:** POST
-  - **Опис:** Додавання або оновлення оцінок для студента.
-  - **Параметри в тілі запиту:**
-    - studentName: String
-    - date: Date (YYYY-MM-DD)
-    - ratings: Масив об'єктів, що містять subject та ratings
+### User and Authentication Endpoints
 
-- **Список студентів**
-  - **URL:** /listSTUDENT
-  - **Метод:** POST
-  - **Опис:** Отримання списку студентів.
-  - **Параметри в тілі запиту:**
-    - username: String (необов'язковий)
+- **Add Rating**
+  - **URL:** `/addRating`
+  - **Method:** `POST`
+  - **Description:** Adds or updates grades for a student.
+  - **Request Body Parameters:**
+    - `studentName`: String
+    - `date`: Date (YYYY-MM-DD)
+    - `ratings`: Array of objects containing subject and ratings
 
-- **Список вчителів**
-  - **URL:** /listTEACHER
-  - **Метод:** POST
-  - **Опис:** Отримання списку вчителів.
-  - **Параметри в тілі запиту:**
-    - username: String (необов'язковий)
+- **List Students**
+  - **URL:** `/listSTUDENT`
+  - **Method:** `POST`
+  - **Description:** Retrieves a list of students.
+  - **Request Body Parameters:**
+    - `username`: String (optional)
 
-- **Видалити предмет у студента**
-  - **URL:** /deleteSubject
-  - **Метод:** POST
-  - **Опис:** Видалення предмету у студента.
-  - **Параметри в тілі запиту:**
-    - username: String
-    - subjectId: String
+- **List Teachers**
+  - **URL:** `/listTEACHER`
+  - **Method:** `POST`
+  - **Description:** Retrieves a list of teachers.
+  - **Request Body Parameters:**
+    - `username`: String (optional)
 
-- **Додати предмет вчителю**
-  - **URL:** /addSubjectToTeacher
-  - **Метод:** POST
-  - **Опис:** Додавання предмету вчителю.
-  - **Параметри в тілі запиту:**
-    - teacherName: String
-    - subjectName: String
+- **Delete Student Subject**
+  - **URL:** `/deleteSubject`
+  - **Method:** `POST`
+  - **Description:** Deletes a subject from a student.
+  - **Request Body Parameters:**
+    - `username`: String
+    - `subjectId`: String
 
-- **Список студентів за предметом**
-  - **URL:** /studentsBySubject
-  - **Метод:** POST
-  - **Опис:** Отримання списку студентів, які записані на певний предмет.
-  - **Параметри в тілі запиту:**
-    - subject: String
+- **Add Subject to Teacher**
+  - **URL:** `/addSubjectToTeacher`
+  - **Method:** `POST`
+  - **Description:** Assigns a subject to a teacher.
+  - **Request Body Parameters:**
+    - `teacherName`: String
+    - `subjectName`: String
 
-### Кінцеві точки для предметів
+- **List Students by Subject**
+  - **URL:** `/studentsBySubject`
+  - **Method:** `POST`
+  - **Description:** Retrieves students enrolled in a specific subject.
+  - **Request Body Parameters:**
+    - `subject`: String
 
-- **Отримати всі предмети**
-  - **URL:** /subjects
-  - **Метод:** GET
-  - **Опис:** Отримання списку всіх предметів.
+### Subject Endpoints
 
-- **Додати предмет**
-  - **URL:** /subjects
-  - **Метод:** POST
-  - **Опис:** Додавання нового предмету.
-  - **Параметри в тілі запиту:**
-    - name: String
+- **Get All Subjects**
+  - **URL:** `/subjects`
+  - **Method:** `GET`
+  - **Description:** Retrieves a list of all subjects.
 
-- **Видалити предмет**
-  - **URL:** /subjects
-  - **Метод:** DELETE
-  - **Опис:** Видалення предмету.
-  - **Параметри в тілі запиту:**
-    - name: String
+- **Add Subject**
+  - **URL:** `/subjects`
+  - **Method:** `POST`
+  - **Description:** Adds a new subject.
+  - **Request Body Parameters:**
+    - `name`: String
 
-### Кінцеві точки для розкладу
+- **Delete Subject**
+  - **URL:** `/subjects`
+  - **Method:** `DELETE`
+  - **Description:** Deletes a subject.
+  - **Request Body Parameters:**
+    - `name`: String
 
-- **Додати запис до розкладу**
-  - **URL:** /subjects/schedule
-  - **Метод:** POST
-  - **Опис:** Додавання запису до розкладу для предмету.
-  - **Параметри в тілі запиту:**
-    - name: String
-    - day: String
-    - time: String
+### Schedule Endpoints
 
-- **Видалити запис з розкладу**
-  - **URL:** /subjects/schedule
-  - **Метод:** DELETE
-  - **Опис:** Видалення запису з розкладу для предмету.
-  - **Параметри в тілі запиту:**
-    - name: String
-    - day: String
-    - time: String
+- **Add Schedule Entry**
+  - **URL:** `/subjects/schedule`
+  - **Method:** `POST`
+  - **Description:** Adds a schedule entry for a subject.
+  - **Request Body Parameters:**
+    - `name`: String
+    - `day`: String
+    - `time`: String
 
-- **Отримати розклад**
-  - **URL:** /subjects/schedule
-  - **Метод:** GET
-  - **Опис:** Отримання розкладу для предмету.
-  - **Параметри в тілі запиту:**
-    - name: String
+- **Delete Schedule Entry**
+  - **URL:** `/subjects/schedule`
+  - **Method:** `DELETE`
+  - **Description:** Deletes a schedule entry for a subject.
+  - **Request Body Parameters:**
+    - `name`: String
+    - `day`: String
+    - `time`: String
 
-### Кінцеві точки для класів
+- **Get Schedule**
+  - **URL:** `/subjects/schedule`
+  - **Method:** `GET`
+  - **Description:** Retrieves the schedule for a subject.
+  - **Request Body Parameters:**
+    - `name`: String
 
-- **Створити клас**
-  - **URL:** /class
-  - **Метод:** POST
-  - **Опис:** Створення нового класу.
-  - **Параметри в тілі запиту:**
-    - name: String
+### Class Endpoints
 
-- **Додати студента до класу**
-  - **URL:** /class/add-student
-  - **Метод:** POST
-  - **Опис:** Додавання студента до класу.
-  - **Параметри в тілі запиту:**
-    - className: String
-    - studentUsername: String
+- **Create Class**
+  - **URL:** `/class`
+  - **Method:** `POST`
+  - **Description:** Creates a new class.
+  - **Request Body Parameters:**
+    - `name`: String
 
-- **Видалити клас**
-  - **URL:** /class
-  - **Метод:** DELETE
-  - **Опис:** Видалення класу.
-  - **Параметри в тілі запиту:**
-    - name: String
+- **Add Student to Class**
+  - **URL:** `/class/add-student`
+  - **Method:** `POST`
+  - **Description:** Adds a student to a class.
+  - **Request Body Parameters:**
+    - `className`: String
+    - `studentUsername`: String
 
-- **Отримати всі класи**
-  - **URL:** /class
-  - **Метод:** GET
-  - **Опис:** Отримання списку всіх класів.
+- **Delete Class**
+  - **URL:** `/class`
+  - **Method:** `DELETE`
+  - **Description:** Deletes a class.
+  - **Request Body Parameters:**
+    - `name`: String
 
-### Кінцеві точки для оцінок
+- **Get All Classes**
+  - **URL:** `/class`
+  - **Method:** `GET`
+  - **Description:** Retrieves a list of all classes.
 
-- **Отримати статистику по предмету**
-  - **URL:** /subject/statistics
-  - **Метод:** POST
-  - **Опис:** Отримання статистики оцінок по предмету.
-  - **Параметри в тілі запиту:**
-    - username: String
-    - password: String
-    - subject: String
+### Rating Endpoints
 
-### Кінцеві точки для матеріалів
+- **Get Subject Statistics**
+  - **URL:** `/subject/statistics`
+  - **Method:** `POST`
+  - **Description:** Retrieves grade statistics for a subject.
+  - **Request Body Parameters:**
+    - `username`: String
+    - `password`: String
+    - `subject`: String
 
-- **Завантажити PDF**
-  - **URL:** /upload
-  - **Метод:** POST
-  - **Опис:** Завантаження PDF файлу.
-  - **Параметри в тілі запиту:**
-    - username: String
-    - password: String
-    - className: String
-    - subject: String
-    - file: PDF файл
+### Material Endpoints
 
-- **Отримати матеріали**
-  - **URL:** /materials
-  - **Метод:** GET
-  - **Опис:** Отримання списку матеріалів для конкретного класу та предмету.
-  - **Параметри запиту:**
-    - className: String (необов'язковий)
-    - subject: String (необов'язковий)
+- **Upload PDF**
+  - **URL:** `/upload`
+  - **Method:** `POST`
+  - **Description:** Uploads a PDF file.
+  - **Request Body Parameters:**
+    - `username`: String
+    - `password`: String
+    - `className`: String
+    - `subject`: String
+    - `file`: PDF file
 
-- **Перегляд PDF**
-  - **URL:** /material/:id
-  - **Метод:** GET
-  - **Опис:** Перегляд конкретного PDF файлу за ID.
+- **Get Materials**
+  - **URL:** `/materials`
+  - **Method:** `GET`
+  - **Description:** Retrieves materials for a specific class and subject.
+  - **Request Query Parameters:**
+    - `className`: String (optional)
+    - `subject`: String (optional)
 
-- **Видалити PDF**
-  - **URL:** /material/:id
-  - **Метод:** DELETE
-  - **Опис:** Видалення конкретного PDF файлу за ID.
+- **View PDF**
+  - **URL:** `/material/:id`
+  - **Method:** `GET`
+  - **Description:** Views a specific PDF file by ID.
+
+- **Delete PDF**
+  - **URL:** `/material/:id`
+  - **Method:** `DELETE`
+  - **Description:** Deletes a specific PDF file by ID.
 
 ## Middleware
 
-API використовує декілька middleware для різних функціональностей:
-- authMiddleware: Для автентифікації користувачів.
-- roleMiddleware: Для авторизації користувачів на основі їх ролей.
-- checkRole: Для перевірки конкретних ролей для певних маршрутів.
+The API uses several middleware functions for various functionalities:
+- `authMiddleware`: For user authentication.
+- `roleMiddleware`: For user authorization based on roles.
+- `checkRole`: For checking specific roles for certain routes.
 
-## Моделі
+## Models
 
-API використовує наступні моделі:
-- User: Для управління інформацією про користувачів.
-- Rating: Для зберігання оцінок студентів.
-- Subject: Для управління предметами.
-- Class: Для управління класами.
-- Material: Для зберігання завантажених PDF матеріалів.
+The API uses the following models:
+- `User`: Manages user information.
+- `Rating`: Stores student grades.
+- `Subject`: Manages subjects.
+- `Class`: Manages classes.
+- `Material`: Stores uploaded PDF materials.
 
-## Внесок
+## Contribution
 
-Внесок вітається! Будь ласка, створіть issue, щоб обговорити, що ви хочете змінити.
+Contributions are welcome! Please create an issue to discuss what you would like to change.
 
-## Ліцензія
+## License
 
-Цей проект ліцензований під ліцензією MIT.
+This project is licensed under the MIT License.
